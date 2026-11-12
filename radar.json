@@ -1,0 +1,163 @@
+[
+  {
+    "name": "Apache Commons",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Modul: commons-codec, commons-csv, commons-fileupload, commons-io, commons-lang3, commons-text. Rumpun library utilitas Commons (codec, io, fileupload, csv, lang3, text) dipakai di kedua project. Mapan dan tanpa temuan kerentanan tercatat."
+  },
+  {
+    "name": "Apache Log4j 2",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 2.25.4. Modul: log4j-api, log4j-core, log4j-jul, log4j-slf4j2-impl. Logging backend 2.25.4 dipakai di kedua project melalui starter Log4j2. Kuadran bisa juga Platforms; tidak ada temuan tercatat, versi tertinggal dari 2.26.1."
+  },
+  {
+    "name": "Apache Tomcat",
+    "ring": "Adopt",
+    "quadrant": "Platforms",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 10.1.55. Modul: tomcat-embed-core, tomcat-embed-el, tomcat-embed-websocket. Embedded Tomcat 10.1.55 (core, el, websocket) menjadi server web kedua project melalui Spring Boot. Mapan dan tanpa temuan tercatat."
+  },
+  {
+    "name": "BouncyCastle",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 1.84. Provider kriptografi bcprov-jdk18on 1.84 dipakai di kedua project dengan lisensi MIT. Peran khusus sehingga layak Trial; kuadran bisa Platforms dan versi tertinggal dari 1.87."
+  },
+  {
+    "name": "Facade Schema",
+    "ring": "Assess",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 1.0.3. io.github.sasanlabs:facade-schema 1.0.3 muncul di kedua project, tetapi fungsi dan pilihan teknologinya belum dikenal dari data. Perlu dipelajari sebelum direkomendasikan."
+  },
+  {
+    "name": "H2 Database",
+    "ring": "Trial",
+    "quadrant": "Platforms",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 2.3.232. Database embedded 2.3.232 terdeteksi di kedua project; perannya bisa untuk pengembangan atau pengujian. Kuadran bisa juga Languages & Frameworks dan tidak ada temuan tercatat."
+  },
+  {
+    "name": "Hibernate ORM",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Modul: antlr4-runtime, byte-buddy, hibernate-commons-annotations, hibernate-core, jandex, jboss-logging. ORM standar di kedua project (hibernate-core 6.6.53.Final); jandex, byte-buddy, jboss-logging, antlr4-runtime, dan commons annotations dilipat sebagai detail implementasi. Tanpa temuan tercatat."
+  },
+  {
+    "name": "HikariCP",
+    "ring": "Adopt",
+    "quadrant": "Platforms",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 6.3.3. Connection pool 6.3.3 dipakai di kedua project sebagai default Spring Boot. Kuadran bisa juga Languages & Frameworks; mapan tanpa temuan tercatat."
+  },
+  {
+    "name": "Jackson",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 1.7.3, 2.21, 2.21.5. Modul: classmate, jackson-annotations, jackson-bom, jackson-core, jackson-databind, jackson-datatype-jdk8, jackson-datatype-jsr310, jackson-module-parameter-names. Databind, core, annotations, dan modul datatype 2.21.5 dipakai di kedua project; classmate dilipat sebagai pendukung introspeksi. Tidak ada temuan tercatat, data analyzer terbatas."
+  },
+  {
+    "name": "Jakarta EE APIs",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Modul: jakarta.activation-api, jakarta.annotation-api, jakarta.inject-api, jakarta.persistence-api, jakarta.transaction-api, jakarta.xml.bind-api. Rumpun API Jakarta EE (activation, annotation, inject, persistence, transaction, xml.bind) dipakai di kedua project lewat Spring Boot. Spesifikasi mapan tanpa temuan tercatat."
+  },
+  {
+    "name": "Jakarta Mail (Angus)",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 2.0.3, 2.0.5. Modul: angus-activation, jakarta.mail. Implementasi Jakarta Mail 2.0.5 dan angus-activation dipakai di kedua project untuk kebutuhan email. Peran khusus dan layak dicoba; tidak ada temuan tercatat."
+  },
+  {
+    "name": "JAXB (GlassFish)",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 4.0.9, 4.1.2. Modul: istack-commons-runtime, jaxb-core, jaxb-runtime, txw2. Runtime JAXB 4.0.9 (jaxb-core, jaxb-runtime, txw2) dengan istack-commons-runtime sebagai pendukung, dipakai di kedua project. Peran khusus; tanpa temuan tercatat."
+  },
+  {
+    "name": "JSON-java (org.json)",
+    "ring": "Assess",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 20231013. Library org.json versi kalender 20231013 ada di kedua project, sementara Jackson juga tersedia; tujuannya belum jelas dan bisa jadi transitif. Versi terbaru 20260814."
+  },
+  {
+    "name": "Micrometer",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 1.15.12. Modul: micrometer-commons, micrometer-observation. Modul commons dan observation 1.15.12 dipakai di kedua project untuk instrumentasi metrik. Kuadran bisa Platforms; belum ada temuan tercatat."
+  },
+  {
+    "name": "Nimbus JOSE JWT",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 1.0-1, 9.37.4. Modul: jcip-annotations, nimbus-jose-jwt. Library JOSE/JWT 9.37.4 dengan jcip-annotations sebagai pendukung, dipakai terbatas di kedua project. Kuadran bisa Platforms; tanpa temuan tercatat."
+  },
+  {
+    "name": "SLF4J",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 2.0.18. Facade logging slf4j-api 2.0.18 dipakai di kedua project dan menjadi standar ekosistem Java. Tidak ada temuan kerentanan tercatat."
+  },
+  {
+    "name": "SnakeYAML",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 2.4. Parser YAML snakeyaml 2.4 dipakai di kedua project, kemungkinan lewat konfigurasi Spring Boot. Mapan tetapi perannya tidak langsung terlihat; tanpa temuan tercatat."
+  },
+  {
+    "name": "Spring Boot",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 3.5.16. Modul: spring-boot, spring-boot-autoconfigure, spring-boot-starter, spring-boot-starter-data-jpa, spring-boot-starter-jdbc, spring-boot-starter-json, spring-boot-starter-log4j2, spring-boot-starter-mail dan 2 lainnya. Framework utama di kedua project (3.5.16, rilis 2026) beserta seluruh starter yang dipakai. Tidak ada temuan kerentanan tercatat, tetapi analyzer mungkin belum aktif."
+  },
+  {
+    "name": "Spring Data JPA",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 3.5.13. Modul: spring-data-commons, spring-data-jpa. Modul data JPA 3.5.13 dipakai di kedua project bersama Spring Boot 3.5.16. Mapan dan terpelihara; tidak ada temuan tercatat."
+  },
+  {
+    "name": "Spring Framework",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 1.9.25.1, 6.2.19. Modul: aspectjweaver, spring-aop, spring-aspects, spring-beans, spring-context, spring-context-support, spring-core, spring-expression dan 6 lainnya. Inti Spring 6.2.19 dipakai di kedua project; aspectjweaver dilipat sebagai pendukung AOP. Tidak ada temuan kerentanan tercatat, dengan keterbatasan data analyzer."
+  },
+  {
+    "name": "Spring Security",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 6.5.11. Hanya modul spring-security-crypto 6.5.11 yang terdeteksi, jadi perannya terbatas pada kriptografi. Layak dicoba lebih luas bila kebutuhan keamanan bertambah."
+  },
+  {
+    "name": "Ubuntu",
+    "ring": "Adopt",
+    "quadrant": "Platforms",
+    "isNew": "FALSE",
+    "description": "Dipakai di 1 project (my-app-image:1.0.0). Versi: 26.04. Base OS Ubuntu 26.04 untuk image my-app-image. Pilihan platform yang disengaja; tidak ada data kerentanan paket OS di input."
+  },
+  {
+    "name": "UnboundID LDAP SDK",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "Dipakai di 2 project (my-app:1.0.0, myapp2.0:1.0.0). Versi: 6.0.5. SDK LDAP 6.0.5 dipakai di kedua project dengan lisensi Apache-2.0. Peran khusus dan layak dicoba lebih luas; tidak ada temuan tercatat."
+  }
+]
