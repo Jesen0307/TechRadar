@@ -1,6 +1,6 @@
 # Playbook Agent: Menentukan Blip, Quadrant, dan Ring Tech Radar
 
-Dokumen ini adalah instruksi operasional untuk AI agent. Versi lengkap untuk manusia ada di dokumen "Baseline Pembuatan Tech Radar". Bila keduanya berbeda, baseline yang berlaku.
+Dokumen ini adalah instruksi operasional untuk AI agent.
 
 ## Tugas
 
@@ -96,7 +96,7 @@ Bila `blips.previous.json` berisi keputusan:
 
 ## Uji granularitas: blip atau dilipat?
 
-Radar harus berisi puluhan blip, bukan ratusan. Uji tiap component dengan tiga pertanyaan berurutan:
+Radar harus berisi blip utama , bukan ratusan blip yang low level libraries. Uji tiap component dengan tiga pertanyaan berurutan:
 
 1. Apakah tim memilihnya secara sengaja, dan ada alternatif nyata? Jika ya, blip sendiri.
 2. Apakah ia dibawa teknologi lain sebagai bagian implementasinya? Jika ya, **lipat ke induknya**.
