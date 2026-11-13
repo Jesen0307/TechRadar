@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """
-Ambil SEMUA component dari Dependency-Track, tanpa filter dan tanpa pengelompokan.
+Fetch ALL components from Dependency-Track, without filtering or grouping.
 
-Hasil di folder output (default: dump/):
-    projects.json                 daftar project
-    components/<project>.json     component per project, apa adanya dari API
-    all-components.json           gabungan: {"nama:versi (uuid)": [component, ...]}
-    components.json               ringkasan padat untuk AI agent: satu baris per component unik,
-                                  tanpa paket OS (deb, apk, rpm) kecuali memakai --include-os
-    metrics/<project>.json        (opsional --with-metrics) metrik terkini per project
-    findings/<project>.json       (opsional --with-findings) vulnerability per project
+Output folder (default: dump/):
+    projects.json                 list of projects
+    components/<project>.json     components per project, exactly as returned by the API
+    all-components.json           combined: {"name:version (uuid)": [component, ...]}
+    components.json               compact summary for the AI agent: one line per unique component,
+                                  without OS packages (deb, apk, rpm) unless --include-os is used
+    metrics/<project>.json        (optional --with-metrics) current metrics per project
+    findings/<project>.json       (optional --with-findings) vulnerabilities per project
 
-Setiap baris components.json punya "id" (purl tanpa versi), contoh:
+Every components.json line has an "id" (purl without version), for example:
     pkg:maven/org.springframework/spring-core
-Component tanpa purl memakai "<classifier>:<nama>", contoh: operating_system:ubuntu
+Components without a purl use "<classifier>:<name>", for example: operating_system:ubuntu
 
-Hanya standard library Python 3.8+.
+Python 3.8+ standard library only.
 
-Contoh:
+Example:
     export DT_KEY="odt_xxxxxxxx"
     python3 dtrack_dump.py --url http://localhost:8082
 """
@@ -46,7 +46,7 @@ def api_get(base, path, key, params=None, ctx=None):
     except urllib.error.HTTPError as e:
         return {"__error__": f"HTTP {e.code}", "url": url}, None
     except urllib.error.URLError as e:
-        sys.exit(f"Gagal konek ke {url}: {e.reason}\n  Cek --url dan port API server.")
+        sys.exit(f"Cannot connect to {url}: {e.reason}\n  Check --url and the API server port.")
 
 
 def fetch_all(base, path, key, ctx, page_size=100):
@@ -54,8 +54,8 @@ def fetch_all(base, path, key, ctx, page_size=100):
     while True:
         data, total = api_get(base, path, key, {"pageSize": page_size, "pageNumber": page}, ctx)
         if isinstance(data, dict) and "__error__" in data:
-            sys.exit(f"{data['__error__']} pada {data['url']}\n"
-                     f"  401/403 -> cek API key dan permission (VIEW_PORTFOLIO)")
+            sys.exit(f"{data['__error__']} on {data['url']}\n"
+                     f"  401/403 -> check the API key and its permission (VIEW_PORTFOLIO)")
         if not data:
             break
         items.extend(data)
@@ -169,21 +169,21 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--url", default=os.environ.get("DT_URL", "http://localhost:8082"),
                     help="Base URL API server (env: DT_URL, default http://localhost:8082)")
-    ap.add_argument("--out", default="dump", help="Folder output (default: dump)")
-    ap.add_argument("--tag", help="Hanya project yang punya tag ini")
-    ap.add_argument("--include-inactive", action="store_true", help="Ikutkan project non-aktif")
+    ap.add_argument("--out", default="dump", help="Output folder (default: dump)")
+    ap.add_argument("--tag", help="Only projects with this tag")
+    ap.add_argument("--include-inactive", action="store_true", help="Include inactive projects")
     ap.add_argument("--include-os", action="store_true",
-                    help="Ikutkan paket OS (deb, apk, rpm) di components.json (default: dibuang)")
-    ap.add_argument("--with-metrics", action="store_true", help="Ambil juga metrik terkini tiap project")
-    ap.add_argument("--with-findings", action="store_true", help="Ambil juga daftar vulnerability tiap project")
-    ap.add_argument("--insecure", action="store_true", help="Abaikan validasi sertifikat TLS")
+                    help="Keep OS packages (deb, apk, rpm) in components.json (default: dropped)")
+    ap.add_argument("--with-metrics", action="store_true", help="Also fetch current metrics per project")
+    ap.add_argument("--with-findings", action="store_true", help="Also fetch vulnerabilities per project")
+    ap.add_argument("--insecure", action="store_true", help="Skip TLS certificate validation")
     args = ap.parse_args()
     if not re.match(r"^https?://", args.url or ""):
-        sys.exit(f"--url tidak valid: '{args.url}'. Isi alamat lengkap, contoh: http://localhost:8082")
+        sys.exit(f"invalid --url: '{args.url}'. Use a full address, for example: http://localhost:8082")
 
     key = os.environ.get("DT_KEY")
     if not key:
-        sys.exit('Env DT_KEY belum di-set. Jalankan: export DT_KEY="<api key>"')
+        sys.exit('Env DT_KEY is not set. Run: export DT_KEY="<api key>"')
 
     ctx = None
     if args.insecure:
@@ -224,11 +224,11 @@ def main():
     rows = compact_rows(agg)
     write_compact(os.path.join(args.out, "components.json"), rows)
     total = sum(len(v) for v in combined.values())
-    print(f"Selesai: {total} component dari {len(combined)} project -> {args.out}/", file=sys.stderr)
-    print(f"Ringkasan untuk agent: {len(rows)} component unik -> {args.out}/components.json", file=sys.stderr)
+    print(f"Done: {total} components from {len(combined)} projects -> {args.out}/", file=sys.stderr)
+    print(f"Summary for the agent: {len(rows)} unique components -> {args.out}/components.json", file=sys.stderr)
     if dropped:
         parts = ", ".join(f"{t} {len(ids)}" for t, ids in sorted(dropped.items()))
-        print(f"Paket OS dibuang dari components.json (unik): {parts}", file=sys.stderr)
+        print(f"OS packages dropped from components.json (unique): {parts}", file=sys.stderr)
 
 
 if __name__ == "__main__":
