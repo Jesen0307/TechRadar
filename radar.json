@@ -1,5 +1,12 @@
 [
   {
+    "name": "Ant Design",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "antd, array-tree-filter, async-validator, classnames, colors, compute-scroll-into-view, copy-to-clipboard, css-animation, dayjs, dom-align, icons, icons-svg, insert-css, json2mq, mini-store, moment, omit.js, rc-align, rc-animate, rc-cascader, rc-checkbox, rc-collapse, rc-dialog, rc-drawer, rc-dropdown, rc-field-form, rc-input-number, rc-mentions, rc-menu, rc-notification, rc-pagination, rc-picker, rc-progress, rc-rate, rc-resize-observer, rc-select, rc-slider, rc-steps, rc-switch, rc-table, rc-tabs, rc-textarea, rc-tooltip, rc-tree, rc-tree-select, rc-trigger, rc-upload, rc-util, rc-virtual-list, react-slick, resize-observer-polyfill, scroll-into-view-if-needed, shallowequal, string-convert, tinycolor2, toggle-selection, warning"
+  },
+  {
     "name": "Apache Commons",
     "ring": "Adopt",
     "quadrant": "Languages & Frameworks",
@@ -14,6 +21,13 @@
     "description": "tomcat-embed-core, tomcat-embed-el, tomcat-embed-websocket"
   },
   {
+    "name": "Babel",
+    "ring": "Trial",
+    "quadrant": "Tools",
+    "isNew": "TRUE",
+    "description": "babel-plugin-syntax-jsx, code-frame, generator, helper-annotate-as-pure, helper-function-name, helper-get-function-arity, helper-module-imports, helper-split-export-declaration, helper-validator-identifier, highlight, js-tokens, jsesc, parser, runtime, template, to-fast-properties, traverse, types"
+  },
+  {
     "name": "BouncyCastle",
     "ring": "Trial",
     "quadrant": "Languages & Frameworks",
@@ -21,11 +35,32 @@
     "description": "bcprov-jdk18on"
   },
   {
+    "name": "date-fns",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "date-fns"
+  },
+  {
+    "name": "Express",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "accepts, array-flatten, body-parser, bytes, compressible, compression, content-disposition, content-type, cookie-signature, debug, depd, destroy, ee-first, encodeurl, escape-html, etag, express, finalhandler, forwarded, fresh, http-errors, iconv-lite, inherits, ip, ipaddr.js, media-typer, merge-descriptors, methods, mime, mime-db, mime-types, ms, negotiator, on-finished, on-headers, parseurl, proxy-addr, qs, range-parser, raw-body, safe-buffer, safer-buffer, send, serve-static, setprototypeof, statuses, toidentifier, type-is, unpipe, utils-merge, vary"
+  },
+  {
     "name": "Facade Schema",
     "ring": "Assess",
     "quadrant": "Languages & Frameworks",
     "isNew": "FALSE",
     "description": "facade-schema"
+  },
+  {
+    "name": "FileSaver.js",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "file-saver"
   },
   {
     "name": "H2 Database",
@@ -77,6 +112,13 @@
     "description": "istack-commons-runtime, jaxb-core, jaxb-runtime, txw2"
   },
   {
+    "name": "Lodash",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "lodash, lodash-es, lodash.isequal"
+  },
+  {
     "name": "Log4j2",
     "ring": "Adopt",
     "quadrant": "Languages & Frameworks",
@@ -105,11 +147,116 @@
     "description": "json"
   },
   {
+    "name": "React",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "asap, core-js, csstype, fontfaceobserver, hoist-non-react-statics, loose-envify, object-assign, performance-now, promise, prop-types, raf, react, react-app-polyfill, react-dom, react-is, react-lifecycles-compat, regenerator-runtime, scheduler, use-resize-observer, whatwg-fetch"
+  },
+  {
+    "name": "React Cookie",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "cookie, react-cookie, universal-cookie"
+  },
+  {
+    "name": "React GA",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "react-ga"
+  },
+  {
+    "name": "React Grid Layout",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "react-draggable, react-grid-layout, react-resizable"
+  },
+  {
+    "name": "React Helmet Async",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "invariant, react-fast-compare, react-helmet-async"
+  },
+  {
+    "name": "React Hot Loader",
+    "ring": "Trial",
+    "quadrant": "Tools",
+    "isNew": "TRUE",
+    "description": "big.js, dom-walk, emojis-list, fast-levenshtein, global, json5, loader-utils, min-document, path, process, react-dom, react-hot-loader, source-map, util"
+  },
+  {
+    "name": "React Intl",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "intl, intl-format-cache, intl-messageformat, intl-messageformat-parser, intl-relativeformat, react-intl"
+  },
+  {
+    "name": "React Responsive",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "css-mediaquery, hyphenate-style-name, matchmediaquery, react-responsive, shallow-equal"
+  },
+  {
+    "name": "React Router",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "connected-react-router, history, isarray, mini-create-react-context, path-to-regexp, react-router, react-router-dom, resolve-pathname, tiny-invariant, tiny-warning, value-equal"
+  },
+  {
+    "name": "React Trend",
+    "ring": "Assess",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "react-trend"
+  },
+  {
+    "name": "Recharts",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "balanced-match, brace-expansion, concat-map, d3-array, d3-color, d3-format, d3-interpolate, d3-path, d3-scale, d3-shape, d3-time, d3-time-format, decimal.js-light, dom-helpers, math-expression-evaluator, raf-schd, react-resize-detector, react-smooth, react-transition-group, recharts, recharts-scale, reduce-css-calc, reduce-function-call"
+  },
+  {
+    "name": "Redux",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "core, deferred, delay-p, immer, is, react-redux, redux, redux-injectors, redux-saga, reselect, symbol-observable, symbols, types"
+  },
+  {
+    "name": "sanitize.css",
+    "ring": "Assess",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "sanitize.css"
+  },
+  {
     "name": "Spring Boot",
     "ring": "Adopt",
     "quadrant": "Languages & Frameworks",
     "isNew": "FALSE",
     "description": "aspectjweaver, snakeyaml, spring-aop, spring-aspects, spring-beans, spring-boot, spring-boot-autoconfigure, spring-boot-starter, spring-boot-starter-data-jpa, spring-boot-starter-jdbc, spring-boot-starter-json, spring-boot-starter-log4j2, spring-boot-starter-mail, spring-boot-starter-tomcat, spring-boot-starter-web, spring-context, spring-context-support, spring-core, spring-data-commons, spring-data-jpa, spring-expression, spring-jcl, spring-jdbc, spring-orm, spring-security-crypto, spring-tx, spring-web, spring-webmvc"
+  },
+  {
+    "name": "Styled Components",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "babel-plugin-styled-components, camelize, css-color-keywords, css-to-react-native, is-prop-valid, memoize, postcss-value-parser, styled-components, stylis, supports-color, unitless"
+  },
+  {
+    "name": "TypeScript",
+    "ring": "Trial",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "typescript, typescript-compare, typescript-logic, typescript-tuple"
   },
   {
     "name": "Ubuntu",
