@@ -84,15 +84,6 @@ radar.json  ──► Thoughtworks Radar   (artifacts archived by Jenkins)
 - No concurrent builds (`disableConcurrentBuilds`) because the job mutates the committed `blips.json`.
 
 
-### 3. Runtime environment variables
-
-| Variable | Used by | Purpose |
-|---|---|---|
-| `DT_KEY` | `dtrack_dump.py` | Dependency-Track API key (required; `dtrack_dump.py` exits if unset). |
-| `DT_URL` | `dtrack_dump.py`, Jenkins | Base URL of the API server (default `http://localhost:8082` locally). |
-
----
-
 ## Notes & constraints
 
 - **`blips.json` is the only file the agent may write.** It must be valid JSON with exactly two keys, `blips` and `excluded`, and no markdown or trailing text.
