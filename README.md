@@ -83,22 +83,8 @@ radar.json  ──► Thoughtworks Radar   (artifacts archived by Jenkins)
   - `OpenCode` — API credentials for the agent (id `OpenCode`).
 - No concurrent builds (`disableConcurrentBuilds`) because the job mutates the committed `blips.json`.
 
-### 3. Running the agent locally (optional)
-For a manual run outside Jenkins:
 
-```bash
-export DT_KEY="<dependency-track-api-key>"
-python3 dtrack_dump.py --url "$DT_URL" --out dump            # produce dump/components.json
-
-# Provide dump/components.json + blips.json to the agent and tell it to follow radar-playbook.md
-
-python3 build_radar.py --blips blips.json --components dump/components.json \
-                       --previous blips.previous.json --out radar.json --changes changes.md
-```
-
-`build_radar.py --check` performs validation only and writes nothing. Both scripts use only the Python standard library.
-
-### 4. Runtime environment variables
+### 3. Runtime environment variables
 
 | Variable | Used by | Purpose |
 |---|---|---|
