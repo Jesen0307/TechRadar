@@ -13,33 +13,45 @@ pipeline {
     }
 
     parameters {
-        string(name: 'DT_URL', defaultValue: 'http://dependency-track-apiserver-1:8080', description: 'URL API server Dependency-Track, harus terjangkau dari Jenkins (bukan dari browser)')
-        string(name: 'TAG', defaultValue: '', description: 'Opsional: hanya project dengan tag ini')
-        booleanParam(name: 'RUN_AGENT', defaultValue: true, description: 'Jalankan AI agent. Bila dimatikan, radar dibuat dari blips.json di repo')
-        booleanParam(name: 'REQUIRE_APPROVAL', defaultValue: false, description: 'Minta persetujuan manusia sebelum radar.json dibuat')
-        booleanParam(name: 'ARCHIVE_RAW', defaultValue: false, description: 'Arsipkan juga data mentah semua project (besar)')
+        string(name: 'DT_URL', defaultValue: 'http://dependency-track-apiserver-1:8080')
+        string(name: 'TAG', defaultValue: '')
+        booleanParam(name: 'RUN_AGENT', defaultValue: true)
+        booleanParam(name: 'ARCHIVE_RAW', defaultValue: false)
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh 'rm -rf dump radar.json blips.previous.json'
+                sh 'rm -rf dump radar.json changes.md blips.previous.json'
             }
         }
 
-        stage('Siapkan tool') {
+        stage('Read previous blips') {
+            steps {
+                sh '''
+                    if [ ! -f blips.json ]; then
+                        echo '{"blips": [], "excluded": []}' > blips.json
+                        echo "blips.json not found in the repository, starting empty (first run)"
+                    fi
+                    cp blips.json blips.previous.json
+                    python3 -c "import json;d=json.load(open('blips.json'));print('Previous run: %d blips, %d excluded groups' % (len(d.get('blips', [])), len(d.get('excluded', []))))"
+                '''
+            }
+        }
+
+        stage('Prepare tools') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     sh '''
                         set -e
                         python3 --version
-                        command -v curl >/dev/null 2>&1 || { echo "curl tidak ditemukan di node"; exit 1; }
+                        command -v curl >/dev/null 2>&1 || { echo "curl not found on this node"; exit 1; }
                         mkdir -p "$TOOLS_DIR/bin"
                         export PATH="$TOOLS_DIR/bin:$PATH"
                         if [ "$RUN_AGENT" = "true" ]; then
                             if ! command -v opencode >/dev/null 2>&1; then
-                                echo "OpenCode belum ada, memasang ke $TOOLS_DIR/bin"
+                                echo "OpenCode not found, installing into $TOOLS_DIR/bin"
                                 OPENCODE_INSTALL_DIR="$TOOLS_DIR/bin" curl -fsSL https://opencode.ai/install | bash
                             fi
                             opencode --version
@@ -49,12 +61,12 @@ pipeline {
             }
         }
 
-        stage('Ambil semua component') {
+        stage('Fetch all components') {
             steps {
                 script {
                     def args = ''
                     if (params.TAG?.trim()) {
-                        if (!(params.TAG.trim() ==~ /[A-Za-z0-9_.-]+/)) { error 'TAG tidak valid' }
+                        if (!(params.TAG.trim() ==~ /[A-Za-z0-9_.-]+/)) { error 'Invalid TAG' }
                         args = "--tag ${params.TAG.trim()}"
                     }
                     env.DUMP_ARGS = args
@@ -65,33 +77,38 @@ pipeline {
             }
         }
 
-        stage('Agent menentukan blip') {
+        stage('Agent decides blips') {
             when { expression { params.RUN_AGENT } }
             steps {
-                sh 'cp blips.json blips.previous.json || echo \'{"blips": [], "dikecualikan": []}\' > blips.previous.json'
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE', message: 'AI agent tidak selesai') {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE', message: 'AI agent did not finish') {
                     timeout(time: 30, unit: 'MINUTES') {
                         withEnv(["PATH+TOOLS=${env.TOOLS_DIR}/bin"]) {
                             aiAgent agent: openCode(),
                                     apiCredentialsId: 'OpenCode',
                                     failOnAgentError: false,
                                     model: 'opencode/deepseek-v4.1-flash-free',
-                                    prompt: '''Baca radar-playbook.md dan ikuti persis.
-Input: dump/components.json dan blips.previous.json.
+                                    prompt: '''Read radar-playbook.md and follow it exactly.
 
-Langkah 1: tentukan blip, quadrant, ring, dan component yang dikecualikan, lalu tulis ke blips.json memakai format di playbook.
-Setiap id di dump/components.json harus muncul tepat satu kali.
-Berkas harus berisi hanya JSON yang valid, tanpa markdown, tanpa code fence, dan tanpa teks sebelum atau sesudahnya.
+Inputs:
+- dump/components.json: all current components from Dependency-Track.
+- blips.json in the repository root: the result of the previous radar run. It is the source of truth for the existing blips, with their names, quadrants, rings and components. If it has no blips, this is the first run.
 
-Langkah 2: setelah berkas tertulis, balasan akhirmu berupa ringkasan singkat yang bisa dibaca manusia.
-Susun dari blips.json yang baru kamu tulis, jangan menganalisis ulang dan jangan menempel JSON. Pakai layout ini:
-## Hasil Penentuan Blip
-**Jumlah blip:** angka, dan jumlah component yang dikecualikan
-**Keyakinan rendah:** nama blip dipisah koma
-**Perubahan dari keputusan sebelumnya:** satu bullet per perubahan, atau "tidak ada"
-**Perlu perhatian manusia:** satu bullet per hal
+Step 1: read blips.json first, then update blips.json in place so that it matches the current components.
+Keep every existing blip as it is unless the data justifies a change, add blips for new technologies, and remove blips whose technology no longer appears.
+Set isNew by comparing with the blips that were in blips.json when you started: blips that were already there are not new, blips you add are new. On the first run, when blips.json had no blips, set isNew to false for every blip.
+Every id in dump/components.json must appear exactly once, in a blip or in excluded.
+blips.json must contain only valid JSON, with no markdown, no code fences, and no text before or after it.
 
-Jangan mengubah berkas lain.''',
+Step 2: after the file is written, your final reply must be a short human-readable summary built from the blips.json you just wrote.
+Do not re-analyze anything and do not paste the JSON. Use exactly this layout:
+## Radar Update
+**Blips:** total, number new, number removed since the previous run, number of excluded components
+**New:** names, or "none"
+**Changed:** ring or quadrant changes, or "none"
+**Low confidence:** names, or "none"
+**Needs human attention:** one bullet per item
+
+Do not modify any other file.''',
                                     yoloMode: true
                         }
                     }
@@ -99,41 +116,22 @@ Jangan mengubah berkas lain.''',
             }
         }
 
-        stage('Validasi blips') {
+        stage('Validate blips') {
             steps {
-                script {
-                    def rc = sh(
-                        script: 'python3 build_radar.py --blips blips.json --components dump/components.json --check',
-                        returnStatus: true
-                    )
-                    env.BLIPS_OK = (rc == 0) ? 'true' : 'false'
-                    if (rc != 0) {
-                        unstable('blips.json tidak valid atau tidak lengkap, radar.json tidak dibuat')
-                    }
-                }
+                sh 'python3 build_radar.py --blips blips.json --components dump/components.json --previous blips.previous.json --check'
             }
         }
 
-        stage('Persetujuan manusia') {
-            when { expression { params.REQUIRE_APPROVAL && env.BLIPS_OK == 'true' } }
+        stage('Build radar') {
             steps {
-                timeout(time: 2, unit: 'DAYS') {
-                    input message: 'Setujui blips.json (lihat artifact) untuk dijadikan radar?', ok: 'Setujui'
-                }
-            }
-        }
-
-        stage('Bangun radar') {
-            when { expression { env.BLIPS_OK == 'true' } }
-            steps {
-                sh 'python3 build_radar.py --blips blips.json --components dump/components.json --out radar.json'
+                sh 'python3 build_radar.py --blips blips.json --components dump/components.json --previous blips.previous.json --out radar.json --changes changes.md'
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: 'radar.json, blips.json, blips.previous.json, dump/components.json, dump/projects.json', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'radar.json, blips.json, blips.previous.json, changes.md, dump/components.json, dump/projects.json', allowEmptyArchive: true
             script {
                 if (params.ARCHIVE_RAW) {
                     archiveArtifacts artifacts: 'dump/**', allowEmptyArchive: true
