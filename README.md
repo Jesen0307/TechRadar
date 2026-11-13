@@ -1,0 +1,1 @@
+- Radar : https://radar.thoughtworks.com/?documentId=https%3A%2F%2Fraw.githubusercontent.com%2FJesen0307%2FTechRadar%2Frefs%2Fheads%2Fmain%2Fradar.json
