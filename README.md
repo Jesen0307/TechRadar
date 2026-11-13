@@ -56,6 +56,8 @@ radar.json  ──► Thoughtworks Radar   (artifacts archived by Jenkins)
 
 **Post:** archive `radar.json`, `blips.json`, `blips.previous.json`, `changes.md`, `dump/components.json`, `dump/projects.json` (plus all of `dump/**` when `ARCHIVE_RAW=true`).
 
+**After the build (manual):** the pipeline only archives artifacts — it does **not** commit. You must download the archived `blips.json` and `radar.json`, overwrite the copies in the repo, and push. `blips.json` is the "previous run" that the next build compares against for `isNew`, and `radar.json` is what the published Thoughtworks Radar renders from `main`. Without this, `blips.json` never advances and the public radar never updates.
+
 ### Pipeline parameters
 
 | Parameter | Default | Meaning |
